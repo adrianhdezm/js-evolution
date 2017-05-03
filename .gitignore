@@ -1,0 +1,14 @@
+# Dependency directory
+node_modules/
+
+# MacOS X temp files
+.DS_Store
+
+# WebStorm project
+.idea
+
+# Log files
+*.log
+
+# Distribution files
+dist/
