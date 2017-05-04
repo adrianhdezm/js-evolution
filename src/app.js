@@ -5,6 +5,9 @@ import * as d3 from 'd3';
 import react from './data/rectjs';
 import polymer from './data/polymerjs';
 import vuejs from './data/vuejs';
+import angular from './data/angularjs';
+import jquery from './data/jquery'
+
 
 
 // set the dimensions and margins of the graph
@@ -38,61 +41,68 @@ let parseTime = d3.isoParse;
 
 
 let timeScale  = d3.scaleTime()
-    .domain([new Date(startYear, 0, 1), new Date(endYear, 3, 1)])
+    .domain([new Date(startYear-1, 10, 1), new Date(endYear, 3, 1)])
     .range([0, width]);
 
 let colorScale =  d3.scaleOrdinal(d3.schemeCategory10);
 
 
-Promise.all([react,polymer,vuejs]).then(raw => {
-
+Promise.all([jquery,angular,polymer,react,vuejs]).then(raw => {
 
 // Adding order of the releases
 
-    let reactData = raw[0].map(item => {
-        return {
-            "url": item.html_url,
-            "version": item.tag_name,
-            "project": 'React.js',
-            "date": item.published_at,
-            "position" : 1
-        };
+    let jqueryData  = raw[0].map(item => {
+        item["position"] = 1;
+        return item;
+    });
 
+    let angularData  = raw[1].map(item => {
+        item["position"] = 2;
+        return item;
     });
 
 
-    let polymerData = raw[1].map(item => {
-        return {
-            "url": item.html_url,
-            "version": item.tag_name,
-            "project": 'Polymer',
-            "date": item.published_at,
-            "position" : 2
-        };
+    let polymerData = raw[2].map(item => {
+        item["position"] = 3;
+        return item;
     });
 
 
-    let vuejsData = raw[2].map(item => {
-        return {
-            "url": item.html_url,
-            "version": item.tag_name,
-            "project": 'VueJS',
-            "date": item.published_at,
-            "position" : 3
-        };
+    let reactData = raw[3].map(item => {
+        item["position"] = 4;
+        return item;
     });
 
 
-//Removing minor releases in Polymer
+    let vuejsData = raw[4].map(item => {
+        item["position"] = 5;
+        return item;
+    });
+
+
+
+    //Removing minor releases in Polymer
     polymerData = polymerData.filter(release => {
         return  release.version.slice(0,6) !== 'v0.0.2';
+    });
+
+    //Removing minor releases in Angular
+    angularData = angularData.filter(release => {
+        return /^\d+\.\d+\.\d+$/.test(release.version);
+    });
+
+    //Removing minor releases in Jquery
+    jqueryData = jqueryData.filter(release => {
+        return /^\d+\.\d+\.\d+$/.test(release.version);
     });
 
 
 
     let data = reactData
         .concat(polymerData)
-        .concat(vuejsData);
+        .concat(vuejsData)
+        .concat(angularData)
+        .concat(jqueryData);
 
 
     //removing minor releases

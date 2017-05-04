@@ -17,6 +17,12 @@ let getOne = function(url){
             reject(new Error("Unknown Error"))
         };
 
+        let token = 'test:test';
+        let hash = window.btoa(token);
+        let auth = "Basic " + hash;
+
+        request.setRequestHeader('Authorization', auth);
+
         request.send();
 
     });
