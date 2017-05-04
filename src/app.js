@@ -6,7 +6,8 @@ import react from './data/rectjs';
 import polymer from './data/polymerjs';
 import vuejs from './data/vuejs';
 import angular from './data/angularjs';
-import jquery from './data/jquery'
+import jquery from './data/jquery';
+import d3Q from './data/d3';
 
 
 
@@ -47,7 +48,7 @@ let timeScale  = d3.scaleTime()
 let colorScale =  d3.scaleOrdinal(d3.schemeCategory10);
 
 
-Promise.all([jquery,angular,polymer,react,vuejs]).then(raw => {
+Promise.all([jquery,d3Q,angular,polymer,react,vuejs]).then(raw => {
 
 // Adding order of the releases
 
@@ -56,26 +57,31 @@ Promise.all([jquery,angular,polymer,react,vuejs]).then(raw => {
         return item;
     });
 
-    let angularData  = raw[1].map(item => {
+    let d3Data  = raw[1].map(item => {
         item["position"] = 2;
         return item;
     });
 
-
-    let polymerData = raw[2].map(item => {
+    let angularData  = raw[2].map(item => {
         item["position"] = 3;
         return item;
     });
 
 
-    let reactData = raw[3].map(item => {
+    let polymerData = raw[3].map(item => {
         item["position"] = 4;
         return item;
     });
 
 
-    let vuejsData = raw[4].map(item => {
+    let reactData = raw[4].map(item => {
         item["position"] = 5;
+        return item;
+    });
+
+
+    let vuejsData = raw[5].map(item => {
+        item["position"] = 6;
         return item;
     });
 
@@ -97,12 +103,12 @@ Promise.all([jquery,angular,polymer,react,vuejs]).then(raw => {
     });
 
 
-
     let data = reactData
         .concat(polymerData)
         .concat(vuejsData)
         .concat(angularData)
-        .concat(jqueryData);
+        .concat(jqueryData)
+        .concat(d3Data);
 
 
     //removing minor releases
@@ -114,7 +120,7 @@ Promise.all([jquery,angular,polymer,react,vuejs]).then(raw => {
 //adding offset
     data = data.map( (release,index) => {
 
-        let offset = - 60*Math.pow(release['position'], 1.5);
+        let offset = - 60*Math.pow(release['position'], 1.3);
 
         if(index%2 === 0){
             offset = offset - 30;

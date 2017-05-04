@@ -17,7 +17,7 @@ let getOne = function(url){
             reject(new Error("Unknown Error"))
         };
 
-        let token = 'test:test';
+        let token = 'test:pass';
         let hash = window.btoa(token);
         let auth = "Basic " + hash;
 
