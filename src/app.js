@@ -1,14 +1,14 @@
 
 import * as d3 from 'd3';
 
+/*import react from './services/rectjs';
+import polymer from './services/polymerjs';
+import vuejs from './services/vuejs';
+import angular from './services/angularjs';
+import jquery from './services/jquery';
+import d3Q from './services/d3';*/
 
-import react from './data/rectjs';
-import polymer from './data/polymerjs';
-import vuejs from './data/vuejs';
-import angular from './data/angularjs';
-import jquery from './data/jquery';
-import d3Q from './data/d3';
-
+import data from './data/raw';
 
 
 // set the dimensions and margins of the graph
@@ -48,7 +48,9 @@ let timeScale  = d3.scaleTime()
 let colorScale =  d3.scaleOrdinal(d3.schemeCategory10);
 
 
-Promise.all([jquery,d3Q,angular,polymer,react,vuejs]).then(raw => {
+//Promise.all([jquery,d3Q,angular,polymer,react,vuejs]).then(raw => {
+
+data.asyncItems().then(raw => {
 
 // Adding order of the releases
 
@@ -58,12 +60,12 @@ Promise.all([jquery,d3Q,angular,polymer,react,vuejs]).then(raw => {
     });
 
     let d3Data  = raw[1].map(item => {
-        item["position"] = 2;
+        item["position"] = 3;
         return item;
     });
 
     let angularData  = raw[2].map(item => {
-        item["position"] = 3;
+        item["position"] = 2;
         return item;
     });
 

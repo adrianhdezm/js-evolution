@@ -31,7 +31,7 @@ let dataQ = get(urls).then(raw => {
                     return {
                         "url": commit.html_url,
                         "version": version,
-                        "project": 'JQuery',
+                        "project": 'jQuery',
                         "date": commit.commit.committer.date,
                     };
                 });
