@@ -8,14 +8,13 @@ const eslintPlugins = [];
 const eslintExtends = ['eslint:recommended'];
 const eslintEcmaFeatures = {
 	experimentalObjectRestSpread: true
-}
+};
 
 if (dependencies.includes('react')) {
 	eslintPlugins.push('react');
 	eslintExtends.push('plugin:react/recommended');
 	eslintEcmaFeatures.jsx = true;
 }
-
 
 module.exports = {
 	root: true,
@@ -27,6 +26,7 @@ module.exports = {
 	},
 	extends: eslintExtends,
 	parserOptions: {
+		ecmaVersion: 2017,
 		ecmaFeatures: eslintEcmaFeatures,
 		sourceType: 'module'
 	},
