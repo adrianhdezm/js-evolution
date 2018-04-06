@@ -98,13 +98,14 @@ const frameworks = [
 ];
 
 
+export default function() {
+	return Promise.all(
+		frameworks.map(
+			framework =>
+				framework.urls[0].includes('tags')
+					? getDataFromGitHubTags(framework.name, framework.urls)
+					: getDataFromGitHubReleases(framework.name, framework.urls)
+		)
+	);
+}
 
-
-export default Promise.all(
-	frameworks.map(
-		framework =>
-			framework.urls[0].includes('tags')
-				? getDataFromGitHubTags(framework.name, framework.urls)
-				: getDataFromGitHubReleases(framework.name, framework.urls)
-	)
-);

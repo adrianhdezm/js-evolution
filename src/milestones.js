@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 
 import dataFromGitHub from './data';
 
+
 const milestones = async (container, width, height) => {
 	const g = container.append('g').attr('transform', `translate(${0},${0})`);
 
@@ -26,6 +27,9 @@ const milestones = async (container, width, height) => {
 
 
 	const raw = await dataFromGitHub();
+
+	console.log(raw);      
+
 	// Adding order of the releases
 
 	const vuejsData = raw[0]
